@@ -1,0 +1,16 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "web-monetizer-payouts",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-07-28",
+  "workers_dev": true,
+  "routes": [
+    {
+      "pattern": "hail.thepolka.cloud",
+      "custom_domain": true
+    }
+  ],
+  "vars": {
+    "PAYOUTS_ENABLED": "false"
+  }
+}

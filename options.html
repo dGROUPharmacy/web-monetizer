@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Web Monetizer Settings</title>
+  <style>
+    body { max-width: 520px; margin: 40px auto; padding: 0 20px; font: 14px/1.5 sans-serif; color: #0f172a; }
+    label { display: block; margin-bottom: 6px; font-weight: 700; }
+    input { box-sizing: border-box; width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; }
+    button { margin-top: 12px; padding: 9px 14px; border: 0; border-radius: 6px; background: #0f766e; color: white; cursor: pointer; }
+    #status { min-height: 20px; margin-top: 10px; color: #475569; }
+  </style>
+</head>
+<body>
+  <h1>Payout settings</h1>
+  <p>Enter the access token configured on the Cloudflare payout Worker. It is stored only in this Chrome profile.</p>
+  <label for="payout-token">Payout API token</label>
+  <input id="payout-token" type="password" autocomplete="off">
+  <button id="save" type="button">Save token</button>
+  <div id="status" role="status"></div>
+  <script src="options.js"></script>
+</body>
+</html>

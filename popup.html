@@ -9,6 +9,7 @@
     .amount { font-size: 24px; font-weight: bold; color: #10b981; }
     .tax-deduction { font-size: 13px; color: #ef4444; font-weight: 600; }
     .stat-row { display: flex; justify-content: space-between; font-size: 12px; margin-top: 6px; }
+    .status { margin-top: 12px; padding-top: 10px; border-top: 1px solid #e2e8f0; color: #475569; font-size: 11px; line-height: 1.4; }
   </style>
 </head>
 <body>
@@ -25,6 +26,7 @@
       <span>Federal Tax Withheld:</span>
       <span class="tax-deduction" id="tax-deductions">-$0.00</span>
     </div>
+    <div class="status" id="payout-status">Checking payout status...</div>
   </div>
 
   <div class="stat-row">
