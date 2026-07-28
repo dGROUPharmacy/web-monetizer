@@ -19,26 +19,48 @@ function getTodayKey() {
 // Determine User Location & Applicable Tax Rate
 async function detectLocationAndTaxRate() {
   try {
-    // Request IP-based location data
-    const response = await fetch('https://ipapi.co/json/');
-    const data = await response.json();
+    let data = null;
 
-    userTaxConfig.country = data.country_code;
-    userTaxConfig.state = data.region_code;
-
-    // Apply US Federal Tax baseline rules
-    if (data.country_code === 'US') {
-      userTaxConfig.isTaxApplicable = true;
-      // Baseline self-employment / federal income tax estimation bracket (15%-22%)
-      userTaxConfig.federalTaxRate = 0.15; 
-    } else {
-      userTaxConfig.isTaxApplicable = false;
-      userTaxConfig.federalTaxRate = 0.00;
-    }
+    // Try primary API (ipapi.co)
+    let response = await fetch('https://ipapi.co/json/');
     
+    // Check if the response is actually valid JSON
+    const contentType = response.headers.get('content-type');
+    if (response.ok && contentType && contentType.includes('application/json')) {
+      data = await response.json();
+    } else {
+      console.warn("ipapi.co did not return JSON. Trying fallback API...");
+      // Fallback API (ip-api.com)
+      const fallbackResponse = await fetch('http://ip-api.com/json/');
+      if (fallbackResponse.ok) {
+        const fallbackData = await fallbackResponse.json();
+        data = {
+          country_code: fallbackData.countryCode,
+          region_code: fallbackData.region
+        };
+      }
+    }
+
+    if (data) {
+      userTaxConfig.country = data.country_code || 'US';
+      userTaxConfig.state = data.region_code || 'UNKNOWN';
+
+      if (userTaxConfig.country === 'US') {
+        userTaxConfig.isTaxApplicable = true;
+        userTaxConfig.federalTaxRate = 0.15; // 15% estimated federal withholding
+      } else {
+        userTaxConfig.isTaxApplicable = false;
+        userTaxConfig.federalTaxRate = 0.00;
+      }
+    }
+
     await chrome.storage.local.set({ userTaxConfig });
+    console.log("Location & Tax Config set:", userTaxConfig);
+
   } catch (err) {
-    console.error("Location detection failed, using defaults:", err);
+    console.error("Location detection failed completely, using defaults:", err);
+    // Persist defaults on total failure
+    await chrome.storage.local.set({ userTaxConfig });
   }
 }
 
