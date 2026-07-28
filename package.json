@@ -1,0 +1,12 @@
+{
+  "name": "web-monetizer",
+  "private": true,
+  "scripts": {
+    "check": "node --check background.js && node --check popup.js && node --check options.js && node --check worker/index.js",
+    "worker:dev": "wrangler dev",
+    "worker:deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}

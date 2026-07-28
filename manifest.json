@@ -16,6 +16,7 @@
   "background": {
     "service_worker": "background.js"
   },
+  "options_page": "options.html",
   "action": {
     "default_popup": "popup.html",
     "default_title": "Tax-Adjusted Earnings Summary"

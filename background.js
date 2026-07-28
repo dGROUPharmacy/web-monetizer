@@ -36,7 +36,8 @@ async function ensureInitialized() {
     'userTaxConfig',
     'installId',
     'pendingPayout',
-    'payoutThreshold'
+    'payoutThreshold',
+    'payoutApiToken'
   ]);
   const updates = {};
 
@@ -131,10 +132,22 @@ async function submitPendingPayout() {
   const stored = await chrome.storage.local.get([
     'installId',
     'pendingPayout',
-    'payoutThreshold'
+    'payoutThreshold',
+    'payoutApiToken'
   ]);
   const pending = stored.pendingPayout || { netAmount: 0, taxAmount: 0 };
   const threshold = stored.payoutThreshold || DEFAULT_PAYOUT_THRESHOLD;
+
+  if (!stored.payoutApiToken) {
+    await chrome.storage.local.set({
+      payoutStatus: {
+        state: 'configuration_required',
+        message: 'Open extension settings to add the payout access token.',
+        updatedAt: new Date().toISOString()
+      }
+    });
+    return;
+  }
 
   if (pending.netAmount < threshold) {
     await chrome.storage.local.set({
@@ -153,6 +166,7 @@ async function submitPendingPayout() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${stored.payoutApiToken}`,
         'Idempotency-Key': settlementId
       },
       body: JSON.stringify({
