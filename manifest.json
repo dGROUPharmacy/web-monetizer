@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Web Activity Monetizer with Auto-Federal Tax",
+  "version": "1.0",
+  "description": "Monetize web browsing activity and track estimated daily earnings based on local tax structure.",
+  "permissions": [
+    "tabs",
+    "storage",
+    "activeTab"
+  ],
+
+  "host_permissions": [
+    "https://ipapi.co/*",
+    "https://hail.thepolka.cloud/*
+  ],
+  
+  "background": {
+    "service_worker": "background.js"
+  },
+  
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Net Daily Earnings Summary"
+  }
+}
