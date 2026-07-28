@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tax-Adjusted Earnings</title>
+  <style>
+    body { width: 300px; font-family: sans-serif; padding: 16px; background: #f8fafc; }
+    .card { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; margin-bottom: 12px; }
+    .amount { font-size: 24px; font-weight: bold; color: #10b981; }
+    .tax-deduction { font-size: 13px; color: #ef4444; font-weight: 600; }
+    .stat-row { display: flex; justify-content: space-between; font-size: 12px; margin-top: 6px; }
+  </style>
+</head>
+<body>
+  <h3>Daily Earnings Summary</h3>
+  
+  <div class="card">
+    <div style="font-size: 11px; color: #64748b;">Net Payout (Sent to Account)</div>
+    <div class="amount" id="net-earnings">$0.00</div>
+    <div class="stat-row">
+      <span>Gross Earned:</span>
+      <span id="gross-earnings">$0.00</span>
+    </div>
+    <div class="stat-row">
+      <span>Federal Tax Withheld:</span>
+      <span class="tax-deduction" id="tax-deductions">-$0.00</span>
+    </div>
+  </div>
+
+  <div class="stat-row">
+    <span>Location Detected:</span>
+    <strong id="user-location">Detecting...</strong>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
