@@ -6,7 +6,8 @@
   "permissions": [
     "tabs",
     "storage",
-    "activeTab"
+    "activeTab",
+    "alarms"
   ],
   "host_permissions": [
     "https://ipapi.co/*",
